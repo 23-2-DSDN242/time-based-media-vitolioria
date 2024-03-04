@@ -11,5 +11,5 @@ For this design, I think I'm more inclined to focus on the aesthetic side of the
 As of now, I can definitly say that this is out of my knowledge range when it comes to knowing how to code such components and also not quite sure if it follows what the brief asks of us.
 
 **Maeda clock work**
-
+![Alt text]("/assets/images/maeda clock practice.png")
 I had practiced coding with the second clock example given (I had changed the colours just to look play around). Although I was able to code it, the next step for me would be to incorporate other code such as loops, variables etc because I only have _circle();_ as of now.
