@@ -40,11 +40,14 @@
  //seconds code
   let blue = color(122,255,215);
   let orange = color(255,179,117);
+  let green = color(40,88,65);
+  let lightBlue = color(199,255,246);
   let lerpSeconds = map(obj.seconds,0,59,0,1);
   let secondsColour = lerpColor(blue,orange,lerpSeconds);
   let secondsWithFraction = obj.seconds + (obj.millis / 999.0);
   let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); 
   let center = (370,320) 
+  let secondsColourDayChange = lerpColor(green,lightBlue,lerpSeconds);
 
   push();
   translate(480,250);
@@ -79,13 +82,24 @@
   //   minuteChange = [0];
   // }
 
-  if (hours > 18 || hours < 6){
+  if (hours < 18 || hours > 6){
     background(255,243,168);
-    fill(20,54,219);
+    fill(7,39,245);
     textSize(200);
-    textFont('Courier New'); //google fonts
-    text(minuteDigit);
+    textFont('Georgia'); //google fonts
+    text(minuteDigit,365,320);
        
+    push();
+  translate(480,250);
+  rotate(-90);
+  strokeWeight(20);
+  stroke(secondsColourDayChange);
+  noFill();
+  let end = map(secondRotateSmooth, 0, 360, 0, 360);
+  arc(0,0,300,300,0,end);
+  // circle(0,0,end*3,20);
+ 
+  pop();
   }
 
 
@@ -103,6 +117,9 @@
   ellipse(480,450,40);//6th hour
   ellipse(280,250,40); //9th hour
   push()
+
+
+
   if (secondRotateSmooth == 10){
     ellipse(310,150,secondRotateSmooth);
   }
