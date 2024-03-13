@@ -107,7 +107,7 @@
     ellipse(310,150,secondRotateSmooth);
   }
   else{
-    ellipse(310,150,secondRotateSmooth/3);
+    ellipse(310,150,secondRotateSmooth/6);
   }
    //10th hour
 
