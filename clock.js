@@ -34,7 +34,7 @@
   push(); //code for the arc that will represent the seconds within the clock
   translate(480,250);
   rotate(-90);
-  strokeWeight(30);
+  strokeWeight(10);
   stroke(secondsColour);//the colour will change from start to finish as defined above with the lerp colour
   noFill();
   let end = map(secondRotateSmooth, 0, 360, 0, 360); //rotation relating to the second change
@@ -123,24 +123,33 @@ ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain
 
 
   //alarm code
-  else { //if(alarm == 0)
-    background (219, 255, 223);
-    let lightOrange = color(255, 225, 173);
-    let greyBlue = color(206,211,220);
+  else if(alarm > 0){
+    background (30, 30, 36);
+    let darkblue = color(196, 205, 212);
+    let orange2 = color(255, 207, 153);
     let lerpSeconds2 = map(obj.seconds,0,59,0,1);
-    let secondsColour2 = lerpColor(lightOrange,greyBlue,lerpSeconds2);
-    let secondsWithFraction = obj.seconds + (obj.millis / 999.0);
-    let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); 
+    let secondsColour2 = lerpColor(darkblue,orange2,lerpSeconds2);
+    let secondsWithFraction2 = obj.seconds + (obj.millis / 999.0);
+    let secondRotateSmooth2 = map(secondsWithFraction2, 0, 60, 0, 360); 
    
     push();
     translate(480,250);
     rotate(-90);
-    strokeWeight(30);
+    strokeWeight(10);
     stroke(secondsColour2);
-    noFill();
-    let end = map(secondRotateSmooth, 0, 360, 0, 360);
+
+    let end = map(secondRotateSmooth2, 0, 360, 0, 360);
     arc(0,0,300,300,0,end);
+    fill(255,70);
+    if (millis < 500){
     
+      
+
+      background(20,54,219);
+      noFill();
+      arc(0,0,300,300,0,end);
+     
+    }
     pop();
   
     //minutes code
@@ -149,22 +158,28 @@ ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain
   var minuteChange = 0;
   
   if (minuteDigit <= 9){ 
-    fill(219, 255, 223);
+    fill(255, 248, 240);
     textFont('Courier New')
     textSize(200);
     text("0"+ minuteDigit,360,320); //adds a 0 to singular digits so that the minute is centered
+    if (millis < 500){
+    fill(255,204,253);
+    }
   }
   else{
-    fill(219, 255, 223);
+    fill(255, 248, 240);
     textSize(200);
     textFont('Courier New'); 
     text(minuteDigit,360,320);
+    if (millis < 500){
+      fill(255,204,253);
+      }
   }
    
 
   //hour code 
   translate(width/2,height/2); //hour points are rotated from the center point
-  fill(0,50); //white but 50% opacity
+  fill(146, 20, 12,50); //red with 50% opacity
 
 let hourSize = 50;
 let hourChange = obj.hours;
@@ -193,7 +208,7 @@ if(hourChange == hourCircle) {
   for(let i = 0; i< millisChange; i++){
     if (millis >= 100){
       
-      ellipse(-10,-450/2,millisChange-step); 
+     ellipse(-10,-450/2,millisChange-step); 
 
       }else{
         ellipse(-10,-450/2,millisChange/hourSize); 
@@ -203,11 +218,33 @@ if(hourChange == hourCircle) {
 }
 else{
     hourSize = 25;
-    fill(255);
+    fill(146, 20, 12);
+    if (millis < 500){
+      fill(255);
+      }
 }
-fill(255,75);
+fill(146, 20, 12,75);
 ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain at 25px, filled white with 75% opacity
-}
+if (millis < 500){
+   fill(255,75);
+   ellipse(-10,-450/2,hourSize);
+   }
+
+   
+
+
 
 }
-  }
+
+}else{
+background(0);
+//translate(width/2,height/2);
+textSize(100);
+fill(255);
+translate(280,100);
+text("testing",400,250);
+  // Create an array for the firework objects
+
+}
+}
+  
