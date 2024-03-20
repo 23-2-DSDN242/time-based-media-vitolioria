@@ -13,7 +13,9 @@
   
   function draw_clock(obj) {
   
-  background(20,54,219);
+  background(76, 159, 245);
+
+  // (20,54,219);
   angleMode(DEGREES);
   let hours = obj.hours;
   let minutes = obj.minutes;
@@ -24,13 +26,14 @@
   if (alarm < 0 || alarm == undefined){
   
  //seconds code
-  let blue = color(122,255,215);
+  let blue = color(230, 139, 48);
   let orange = color(255,179,117);
   let lerpSeconds = map(obj.seconds,0,59,0,1);
   let secondsColour = lerpColor(blue,orange,lerpSeconds);
   let secondsWithFraction = obj.seconds + (obj.millis / 999.0);
   let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); 
-
+  let cloudx = 100;
+  let cloudy = 100;
   push(); //code for the arc that will represent the seconds within the clock
   translate(480,250);
   rotate(-90);
@@ -38,8 +41,21 @@
   stroke(secondsColour);//the colour will change from start to finish as defined above with the lerp colour
   noFill();
   let end = map(secondRotateSmooth, 0, 360, 0, 360); //rotation relating to the second change
+  
+  push();
+  strokeWeight(5);
+  stroke(230, 139, 48);
+  fill(255,217,92);
+  ellipse(0,0,600,600);
+  pop();
+
   arc(0,0,300,300,0,end);
   pop();
+  
+  
+  cloudx+=0.1;
+  blue--;
+
 
   //minutes code
   minuteDigit = int(map(minutes,0,59,0,59));
@@ -47,13 +63,13 @@
   var minuteChange = 0;
   
   if (minuteDigit <= 9){ 
-    fill(255,204,253);
+    fill(0);
     textFont('Courier New')
     textSize(200);
     text("0"+ minuteDigit,360,320); //adds a 0 before singular digits so that the minute is centered
   }
   else{
-    fill(255,204,253);
+    fill(0);
     textSize(200);
     textFont('Courier New'); 
     text(minuteDigit,360,320); //displays double digits without the extra 0 
@@ -106,7 +122,11 @@ else{
 fill(255,75);
 ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain at 25px, filled white with 75% opacity
 }
-
+// makeCloud(cloudx, cloudy-50);
+//   makeCloud(cloudx + 100, cloudy + 100)
+//   fill(220)
+//   cloudx+=0.1;
+//   noStroke();
   }
   
 
@@ -131,6 +151,10 @@ ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain
     let secondsColour2 = lerpColor(darkblue,orange2,lerpSeconds2);
     let secondsWithFraction2 = obj.seconds + (obj.millis / 999.0);
     let secondRotateSmooth2 = map(secondsWithFraction2, 0, 60, 0, 360); 
+    let r = random(0,255);
+    let g = random(0,255);
+    let b = random(0,255);
+
    
     push();
     translate(480,250);
@@ -154,7 +178,7 @@ ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain
   var minuteChange = 0;
   
   if (minuteDigit <= 9){ 
-    fill(255, 248, 240);
+    fill(r,g,b);
     textFont('Courier New')
     textSize(200);
     text("0"+ minuteDigit,360,320); //adds a 0 to singular digits so that the minute is centered
@@ -163,7 +187,7 @@ ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain
     }
   }
   else{
-    fill(255, 248, 240);
+    fill(r,g,b);
     textSize(200);
     textFont('Courier New'); 
     text(minuteDigit,360,320);
@@ -237,7 +261,7 @@ if (millis < 500){
 
 
 
-
+  
 
 
 
@@ -255,12 +279,11 @@ if (millis < 500){
   let secondsColour = lerpColor(blue,orange,lerpSeconds);
   let secondsWithFraction = obj.seconds + (obj.millis / 999.0);
   let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); 
-
+ 
  // push(); //code for the arc that will represent the seconds within the clock
   background(30, 30, 36 );
   translate(480,250);
-  rotate(-90);
- 
+  
   stroke(secondsColour);//the colour will change from start to finish as defined above with the lerp colour
   noFill();
   let end0 = map(secondRotateSmooth+2, 0, 360, 0, 360);
@@ -342,5 +365,13 @@ if (millis < 500){
 
 }
 
-  }
+function makeCloud(cloudx, cloudy) {
+  fill(250)
+  noStroke();
+  ellipse(cloudx, cloudy, 70, 50);
+  ellipse(cloudx + 10, cloudy + 10, 70, 50);
+  ellipse(cloudx - 20, cloudy + 10, 70, 50);
+}
+  
 
+}
