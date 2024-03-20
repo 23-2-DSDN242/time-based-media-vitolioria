@@ -13,9 +13,32 @@
   
   function draw_clock(obj) {
   
-  background(76, 159, 245);
+  if (obj.hours > 12 || obj.hours < 5){
+  
+   background(20,54,219);
+    //moon
+    push();
+    translate(480,250);
+    strokeWeight(5);
+    stroke(200, 213, 219);
+    fill(235, 231, 211);
+    ellipse(0,0,600,600);
+    pop();
+   //end of moon
+  }else{
+    background(76, 159, 245);
+   //sun
+   push();
+   translate(480,250);
+   strokeWeight(5);
+   stroke(230, 139, 48);
+   fill(255,217,92);
+   ellipse(0,0,600,600);
+   pop();
+      }
 
-  // (20,54,219);
+
+  // 
   angleMode(DEGREES);
   let hours = obj.hours;
   let minutes = obj.minutes;
@@ -28,12 +51,15 @@
  //seconds code
   let blue = color(230, 139, 48);
   let orange = color(255,179,117);
+  let grey = color(171, 169, 166);
+  let darkGrey = color(66, 64, 60);
   let lerpSeconds = map(obj.seconds,0,59,0,1);
   let secondsColour = lerpColor(blue,orange,lerpSeconds);
+  let nightColour = lerpColor(grey,darkGrey,lerpSeconds);
   let secondsWithFraction = obj.seconds + (obj.millis / 999.0);
   let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); 
-  let cloudx = 100;
-  let cloudy = 100;
+  
+
   push(); //code for the arc that will represent the seconds within the clock
   translate(480,250);
   rotate(-90);
@@ -41,21 +67,14 @@
   stroke(secondsColour);//the colour will change from start to finish as defined above with the lerp colour
   noFill();
   let end = map(secondRotateSmooth, 0, 360, 0, 360); //rotation relating to the second change
+  if (obj.hours > 12 || obj.hours < 5){
+    stroke(nightColour);
+    
+  }
   
-  push();
-  strokeWeight(5);
-  stroke(230, 139, 48);
-  fill(255,217,92);
-  ellipse(0,0,600,600);
-  pop();
-
   arc(0,0,300,300,0,end);
   pop();
   
-  
-  cloudx+=0.1;
-  blue--;
-
 
   //minutes code
   minuteDigit = int(map(minutes,0,59,0,59));
@@ -106,13 +125,14 @@ if(hourChange == hourCircle) {
   
   for(let i = 0; i< millisChange; i++){
     if (millis >= 100){
-      
+      fill(247, 240, 205);
       ellipse(-10,-450/2,millisChange-step); 
 
       }else{
         ellipse(-10,-450/2,millisChange/hourSize); 
       } //change in ellipse size from start of millisec to end 
-  }
+
+       }
   
 }
 else{
@@ -121,12 +141,22 @@ else{
 }
 fill(255,75);
 ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain at 25px, filled white with 75% opacity
+
+if (obj.hours > 12 || obj.hours < 5){
+
+  fill(0,75);
+  ellipse(-10,-450/2,hourSize); 
+  
+}
+
+
 }
 // makeCloud(cloudx, cloudy-50);
 //   makeCloud(cloudx + 100, cloudy + 100)
 //   fill(220)
 //   cloudx+=0.1;
 //   noStroke();
+//triangle(30, 75, 58, 20, 150, 250);
   }
   
 
@@ -144,7 +174,16 @@ ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain
 
   //alarm code
   else if(alarm > 0){
-    background (30, 30, 36);
+    
+
+
+
+
+
+
+
+
+    
     let darkblue = color(196, 205, 212);
     let orange2 = color(255, 207, 153);
     let lerpSeconds2 = map(obj.seconds,0,59,0,1);
@@ -166,7 +205,11 @@ ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain
     arc(0,0,300,300,0,end);
     fill(255,70);
     if (millis < 500){
-      background(20,54,219);
+      if (obj.hours > 12 || obj.hours < 5){
+      background(20,54,219);}
+      else{
+        background(76, 159, 245);
+      }
       noFill();
       arc(0,0,300,300,0,end);
      }
@@ -365,13 +408,7 @@ if (millis < 500){
 
 }
 
-function makeCloud(cloudx, cloudy) {
-  fill(250)
-  noStroke();
-  ellipse(cloudx, cloudy, 70, 50);
-  ellipse(cloudx + 10, cloudy + 10, 70, 50);
-  ellipse(cloudx - 20, cloudy + 10, 70, 50);
-}
+
   
 
 }
