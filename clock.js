@@ -15,26 +15,28 @@
   
   if (obj.hours > 12 || obj.hours < 5){
   
-   background(20,54,219);
-    //moon
+    //Between the hours of 6pm to 5am, a moon and darker background will be displayed 
+    background(20,54,219); //dark blue
+
     push();
-    translate(480,250);
+    translate(480,250); //puts design in center of canvas 
     strokeWeight(5);
     stroke(200, 213, 219);
     fill(235, 231, 211);
     ellipse(0,0,600,600);
     pop();
-   //end of moon
-  }else{
-    background(76, 159, 245);
-   //sun
-   push();
-   translate(480,250);
-   strokeWeight(5);
-   stroke(230, 139, 48);
-   fill(255,217,92);
-   ellipse(0,0,600,600);
-   pop();
+   //end of moon design 
+
+  }else{ //otherwise when the clock hour is not within the designated time a sun design will be displayed 
+    background(76, 159, 245); //light blue
+
+    push();
+    translate(480,250); //puts design in center of canvas
+    strokeWeight(5);
+    stroke(230, 139, 48);
+    fill(255,217,92);
+    ellipse(0,0,600,600);
+    pop();
       }
 
 
