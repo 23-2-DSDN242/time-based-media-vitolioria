@@ -1,6 +1,7 @@
 ## MDDN 242 Project 1: Time-based Media  
 
-##Getting started
+## Getting Started
+
 **Inspiration**
 
 ![download](https://github.com/23-2-DSDN242/time-based-media-vitolioria/assets/147349823/955d08ce-31f9-4846-a335-70e8160602ef)
