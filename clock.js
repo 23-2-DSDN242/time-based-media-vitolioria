@@ -137,21 +137,17 @@ ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain
     rotate(-90);
     strokeWeight(10);
     stroke(secondsColour2);
-
+      
     let end = map(secondRotateSmooth2, 0, 360, 0, 360);
     arc(0,0,300,300,0,end);
     fill(255,70);
     if (millis < 500){
-    
-      
-
       background(20,54,219);
       noFill();
       arc(0,0,300,300,0,end);
-     
-    }
-    pop();
-  
+     }
+     pop();
+    
     //minutes code
     minuteDigit = int(map(minutes,0,59,0,59));
   hourDigit = int(hours);
@@ -209,7 +205,10 @@ if(hourChange == hourCircle) {
     if (millis >= 100){
       
      ellipse(-10,-450/2,millisChange-step); 
-
+push()
+fill(235);
+ellipse(-10,-450/2,millisChange/2); 
+pop()
       }else{
         ellipse(-10,-450/2,millisChange/hourSize); 
       } //change in ellipse size from start of millisec to end 
@@ -236,15 +235,112 @@ if (millis < 500){
 
 }
 
+
+
+
+
+
+
+
+
+
+
 }else{
-background(0);
-//translate(width/2,height/2);
-textSize(100);
-fill(255);
-translate(280,100);
-text("testing",400,250);
-  // Create an array for the firework objects
+
+  
+
+  let blue = color(122,255,215);
+  let orange = color(255,179,117);
+  let lerpSeconds = map(obj.seconds,0,59,0,1);
+  let secondsColour = lerpColor(blue,orange,lerpSeconds);
+  let secondsWithFraction = obj.seconds + (obj.millis / 999.0);
+  let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); 
+
+ // push(); //code for the arc that will represent the seconds within the clock
+  background(30, 30, 36 );
+  translate(480,250);
+  rotate(-90);
+ 
+  stroke(secondsColour);//the colour will change from start to finish as defined above with the lerp colour
+  noFill();
+  let end0 = map(secondRotateSmooth+2, 0, 360, 0, 360);
+  let end1 = map(secondRotateSmooth+5, -0, 360, 0, -360); //rotation relating to the second change
+ 
+
+  strokeWeight(5);
+  rotate(90);
+  stroke(255, 82, 82); //red
+  arc(0,0,30,30,0,end0);
+
+  
+  strokeWeight(10);
+  rotate(180);
+  stroke(245, 168, 91); //orange
+  arc(0,0,70,70,0,end1);
+
+  strokeWeight(10);
+  rotate(270);
+  stroke(247, 199, 22); //yellow
+  arc(0,0,120,120,0,end0);
+
+  strokeWeight(10);
+  rotate(360);
+  stroke(123, 166, 123); //green
+  arc(0,0,165,165,0,end1);
+
+  strokeWeight(15);
+  rotate(90);
+  stroke(92, 157, 255); //blue
+  arc(0,0,210,210,0,end1);
+
+  strokeWeight(20);
+  rotate(180);
+  stroke(187, 145, 255); //indigo
+  arc(0,0,305,305,0,end0);
+
+  strokeWeight(25);
+  rotate(270);
+  stroke(250, 152, 239); //pink
+  arc(0,0,400,400,0,end1);
+
+
+  strokeWeight(20);
+  rotate(360);
+  stroke(255, 97, 79); //red
+  arc(0,0,460,460,0,end0);
+
+  
+  strokeWeight(25);
+  rotate(90);
+  stroke(255, 181, 69); //orange
+  arc(0,0,520,520,0,end1);
+
+  strokeWeight(25);
+  rotate(180);
+  stroke(255, 252, 69); //yellow
+  arc(0,0,600,600,0,end0);
+
+  strokeWeight(30);
+  rotate(270);
+  stroke(141, 247, 164); //green
+  arc(0,0,680,680,0,end0);
+
+  strokeWeight(30);
+  rotate(360);
+  stroke(10, 84, 255); //blue
+  arc(0,0,760,760,0,end1);
+
+  strokeWeight(30);
+  rotate(90);
+  stroke(88, 84, 176); //indigo
+  arc(0,0,850,850,0,end0);
+
+  strokeWeight(35);
+  rotate(180);
+  stroke(255, 77, 133); //pink
+  arc(0,0,950,950,0,end1);
 
 }
-}
-  
+
+  }
+
