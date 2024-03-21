@@ -1,16 +1,3 @@
-/*
- * use p5.js to draw a clock on a 960x500 canvas
- */
-  // draw your own clock here based on the values of obj:
-  //    obj.hours goes from 0-23
-  //    obj.minutes goes from 0-59
-  //    obj.seconds goes from 0-59
-  //    obj.millis goes from 0-999
-  //    obj.seconds_until_alarm is:
-  //        < 0 if no alarm is set
-  //        = 0 if the alarm is currently going off
-  //        > 0 --> the number of seconds until alarm should go off
-  
   function draw_clock(obj) {
   
   if (obj.hours > 18 || obj.hours < 5){
@@ -49,8 +36,10 @@
   let alarm = obj.seconds_until_alarm;
  
   if (alarm < 0 || alarm == undefined){ //when clock is not set, the following code will occur
-  //-------------------------------------------------------------------------------------------------------------------------------------------
- //seconds code
+
+
+  //seconds code----------------------------------------------------------------------------------------------------------------------------
+ 
   let darkOrange = color(230, 139, 48);
   let orange = color(255,179,117);
   let grey = color(171, 169, 166);
@@ -77,8 +66,10 @@
   arc(0,0,300,300,0,end); //represents seconds - closes depeding on the second 
   pop();
   
-//-------------------------------------------------------------------------------------------------------------------------------------------
-  //minutes code
+
+ //minutes code-------------------------------------------------------------------------------------------------------------------------
+ 
+
   minuteDigit = int(map(minutes,0,59,0,59));//variable to display the given minute 
   hourDigit = int(hours); //variable to display the given hour 
  
@@ -96,8 +87,9 @@
     text(minuteDigit,360,320); //displays double digits without the extra 0 
   }
    
-//-------------------------------------------------------------------------------------------------------------------------------------------
-  //hour code 
+
+//hour code --------------------------------------------------------------------------------------------------------------------------------
+
   translate(width/2,height/2); //hour points are rotated from the center point
   fill(0,50); //white but 50% opacity
 
@@ -145,7 +137,6 @@ fill(255,75);
 ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain at 25px, filled white with 75% opacity
 
 if (obj.hours > 18 || obj.hours < 5){
-
   fill(0,75);
   ellipse(-10,-450/2,hourSize); //changes hour colour depending on if the time is 6pm-5am or not
   
@@ -155,33 +146,34 @@ if (obj.hours > 18 || obj.hours < 5){
 
       }
   
-//-------------------------------------------------------------------------------------------------------------------------------------------
-  //alarm code: counting down to the alarm
+//alarm code: counting down to the alarm-----------------------------------------------------------------------------------------
+
   else if(alarm > 0){
     
     
     let darkblue = color(196, 205, 212);
     let orange2 = color(255, 207, 153);
     let lerpSeconds2 = map(obj.seconds,0,59,0,1);
-    let secondsColour2 = lerpColor(darkblue,orange2,lerpSeconds2);
+    let secondsColour2 = lerpColor(darkblue,orange2,lerpSeconds2); //makes it so the two colours blend all the way to the 59th second
     let secondsWithFraction2 = obj.seconds + (obj.millis / 999.0);
     let secondRotateSmooth2 = map(secondsWithFraction2, 0, 60, 0, 360); 
-    let r = random(0,255);
-    let g = random(0,255);
-    let b = random(0,255);
+    let r = random(0,255);//random number for red value
+    let g = random(0,255);//random number for green value
+    let b = random(0,255);//random number for blue value
 
    
-    push();
-    translate(480,250);
+    push(); //setting up the seconds display with different colours etc
+    translate(480,250); //centers canvas
     rotate(-90);
     strokeWeight(10);
     stroke(secondsColour2);
       
     let end = map(secondRotateSmooth2, 0, 360, 0, 360);
-    arc(0,0,300,300,0,end);
+    arc(0,0,300,300,0,end); //closes depending on seconds
     fill(255,70);
     if (millis < 500){
-      if (obj.hours > 18 || obj.hours < 5){
+
+      if (obj.hours > 18 || obj.hours < 5){ //changes background depending on daily hour
       background(20,54,219);}
       else{
         background(76, 159, 245);
@@ -191,13 +183,13 @@ if (obj.hours > 18 || obj.hours < 5){
      }
      pop();
     
-    //minutes code
+    //minutes code-----------------------------------------------------------------------------------------------------------------
     minuteDigit = int(map(minutes,0,59,0,59));
   hourDigit = int(hours);
   var minuteChange = 0;
   
   if (minuteDigit <= 9){ 
-    fill(r,g,b);
+    fill(r,g,b); //random colours appear for the text colour rather than a singular colour
     textFont('Courier New')
     textSize(200);
     text("0"+ minuteDigit,360,320); //adds a 0 to singular digits so that the minute is centered
@@ -206,7 +198,7 @@ if (obj.hours > 18 || obj.hours < 5){
     }
   }
   else{
-    fill(r,g,b);
+    fill(r,g,b); //random colours appear for the text colour rather than a singular colour
     textSize(200);
     textFont('Courier New'); 
     text(minuteDigit,360,320);
@@ -215,8 +207,8 @@ if (obj.hours > 18 || obj.hours < 5){
       }
   }
    
-//-------------------------------------------------------------------------------------------------------------------------------------------
-  //hour code 
+//hour code --------------------------------------------------------------------------------------------------------------------------------
+  
   translate(width/2,height/2); //hour points are rotated from the center point
   fill(146, 20, 12,50); //red with 50% opacity
 
@@ -266,49 +258,31 @@ else{
       }
 }
 fill(146, 20, 12,75);
-ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain at 25px, filled white with 75% opacity
+ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain at 25px, filled red with 75% opacity
 if (millis < 500){
    fill(255,75);
    ellipse(-10,-450/2,hourSize);
    }
 
-   
-
-
-
 }
 
 
-
-  
-
-
-
-
-
-
+//alarm code: when alarm is going off-----------------------------------------------------------------------------------------
 
 }else{
-
   
-
-  let blue = color(122,255,215);
-  let orange = color(255,179,117);
-  let lerpSeconds = map(obj.seconds,0,59,0,1);
-  let secondsColour = lerpColor(blue,orange,lerpSeconds);
+  
   let secondsWithFraction = obj.seconds + (obj.millis / 999.0);
   let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); 
- 
- // push(); //code for the arc that will represent the seconds within the clock
+  let end0 = map(secondRotateSmooth+2, 0, 360, 0, 360); //rotation relating to the second change
+  let end1 = map(secondRotateSmooth+5, -0, 360, 0, -360); //rotation relating to the second change (goes backwards)
+
   background(30, 30, 36 );
   translate(480,250);
-  
-  stroke(secondsColour);//the colour will change from start to finish as defined above with the lerp colour
   noFill();
-  let end0 = map(secondRotateSmooth+2, 0, 360, 0, 360);
-  let end1 = map(secondRotateSmooth+5, -0, 360, 0, -360); //rotation relating to the second change
  
-
+ 
+//all arcs will close depending on seconds but all will be rotated at different points and opposite rotations
   strokeWeight(5);
   rotate(90);
   stroke(255, 82, 82); //red
