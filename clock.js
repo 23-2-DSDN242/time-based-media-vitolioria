@@ -13,7 +13,7 @@
   
   function draw_clock(obj) {
   
-  if (obj.hours > 12 || obj.hours < 5){
+  if (obj.hours > 18 || obj.hours < 5){
   
     //Between the hours of 6pm to 5am, a moon and darker background will be displayed 
     background(20,54,219); //dark blue
@@ -37,10 +37,10 @@
     fill(255,217,92);
     ellipse(0,0,600,600);
     pop();
-      }
+    //end of sun design
+  
+  }
 
-
-  // 
   angleMode(DEGREES);
   let hours = obj.hours;
   let minutes = obj.minutes;
@@ -48,18 +48,18 @@
   let millis = obj.millis;
   let alarm = obj.seconds_until_alarm;
  
-  if (alarm < 0 || alarm == undefined){
-  
+  if (alarm < 0 || alarm == undefined){ //when clock is not set, the following code will occur
+  //-------------------------------------------------------------------------------------------------------------------------------------------
  //seconds code
-  let blue = color(230, 139, 48);
+  let darkOrange = color(230, 139, 48);
   let orange = color(255,179,117);
   let grey = color(171, 169, 166);
   let darkGrey = color(66, 64, 60);
   let lerpSeconds = map(obj.seconds,0,59,0,1);
-  let secondsColour = lerpColor(blue,orange,lerpSeconds);
-  let nightColour = lerpColor(grey,darkGrey,lerpSeconds);
+  let secondsColour = lerpColor(darkOrange,orange,lerpSeconds); //makes it so the two colours blend all the way to the 59th second
+  let nightColour = lerpColor(grey,darkGrey,lerpSeconds); //makes it so the two colours blend all the way to the 59th second - different colours
   let secondsWithFraction = obj.seconds + (obj.millis / 999.0);
-  let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); 
+  let secondRotateSmooth = map(secondsWithFraction, 0, 60, 0, 360); //makes the rotation of the seconds run smooth rather than choppy 
   
 
   push(); //code for the arc that will represent the seconds within the clock
@@ -69,39 +69,39 @@
   stroke(secondsColour);//the colour will change from start to finish as defined above with the lerp colour
   noFill();
   let end = map(secondRotateSmooth, 0, 360, 0, 360); //rotation relating to the second change
-  if (obj.hours > 12 || obj.hours < 5){
-    stroke(nightColour);
-    
+  
+  if (obj.hours > 18 || obj.hours < 5){
+    stroke(nightColour); 
   }
   
-  arc(0,0,300,300,0,end);
+  arc(0,0,300,300,0,end); //represents seconds - closes depeding on the second 
   pop();
   
-
+//-------------------------------------------------------------------------------------------------------------------------------------------
   //minutes code
-  minuteDigit = int(map(minutes,0,59,0,59));
-  hourDigit = int(hours);
-  var minuteChange = 0;
+  minuteDigit = int(map(minutes,0,59,0,59));//variable to display the given minute 
+  hourDigit = int(hours); //variable to display the given hour 
+ 
   
   if (minuteDigit <= 9){ 
-    fill(0);
+    fill(0);//black text
     textFont('Courier New')
     textSize(200);
     text("0"+ minuteDigit,360,320); //adds a 0 before singular digits so that the minute is centered
   }
   else{
-    fill(0);
+    fill(0); //black text
     textSize(200);
     textFont('Courier New'); 
     text(minuteDigit,360,320); //displays double digits without the extra 0 
   }
    
-
+//-------------------------------------------------------------------------------------------------------------------------------------------
   //hour code 
   translate(width/2,height/2); //hour points are rotated from the center point
   fill(0,50); //white but 50% opacity
 
-let hourSize = 50;
+let hourSize; //variable for ellipses representing hour points 
 let hourChange = obj.hours;
 noStroke();
 
@@ -117,9 +117,9 @@ if (obj.hours > 12){
 }
 
 
-for(let hourCircle = 0; hourCircle <=12; hourCircle++){
+for(let hourCircle = 0; hourCircle <=12; hourCircle++){ //creates 12 (11+1) ellipses 
  if (hourCircle > 0){
-  rotate(360/12);
+  rotate(360/12); //makes each ellipse space and rotate 360
  }  
 
 if(hourChange == hourCircle) {
@@ -137,54 +137,28 @@ if(hourChange == hourCircle) {
        }
   
 }
-else{
-    hourSize = 25;
-    fill(255);
+else{ //if the circle is not the hour: bellow will occur 
+    hourSize = 25; 
+    fill(255); //white
 }
 fill(255,75);
 ellipse(-10,-450/2,hourSize); //if the hour is not selected, then it will remain at 25px, filled white with 75% opacity
 
-if (obj.hours > 12 || obj.hours < 5){
+if (obj.hours > 18 || obj.hours < 5){
 
   fill(0,75);
-  ellipse(-10,-450/2,hourSize); 
+  ellipse(-10,-450/2,hourSize); //changes hour colour depending on if the time is 6pm-5am or not
   
 }
 
-
-}
-// makeCloud(cloudx, cloudy-50);
-//   makeCloud(cloudx + 100, cloudy + 100)
-//   fill(220)
-//   cloudx+=0.1;
-//   noStroke();
-//triangle(30, 75, 58, 20, 150, 250);
   }
+
+      }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //alarm code
+//-------------------------------------------------------------------------------------------------------------------------------------------
+  //alarm code: counting down to the alarm
   else if(alarm > 0){
     
-
-
-
-
-
-
-
-
     
     let darkblue = color(196, 205, 212);
     let orange2 = color(255, 207, 153);
@@ -207,7 +181,7 @@ if (obj.hours > 12 || obj.hours < 5){
     arc(0,0,300,300,0,end);
     fill(255,70);
     if (millis < 500){
-      if (obj.hours > 12 || obj.hours < 5){
+      if (obj.hours > 18 || obj.hours < 5){
       background(20,54,219);}
       else{
         background(76, 159, 245);
@@ -241,7 +215,7 @@ if (obj.hours > 12 || obj.hours < 5){
       }
   }
    
-
+//-------------------------------------------------------------------------------------------------------------------------------------------
   //hour code 
   translate(width/2,height/2); //hour points are rotated from the center point
   fill(146, 20, 12,50); //red with 50% opacity
